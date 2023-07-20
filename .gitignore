@@ -1,0 +1,7 @@
+node_modules
+cert.pem
+csr.pem
+key.pem
+howto.txt
+public/assets/1.mp4
+public/assets/2.mp4

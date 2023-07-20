@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Socket</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <video width="320" height="240" loop autoplay muted playsinline id="video1">
+      <source src="assets/1.mp4" type="video/mp4" />
+    </video>
+    <video width="320" height="240" loop autoplay muted playsinline id="video2">
+      <source src="assets/2.mp4" type="video/mp4" />
+    </video>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      window.addEventListener("load", function () {
+        let socket;
+        let server = "https://192.168.1.100:3000/";
+        // let server = 'localhost:3000'
+        socket = io.connect(server);
+        socket.on("label", (data) => {
+          console.log(data);
+          if (data.label == "me" && data.confidence > 0.9) {
+            document.querySelector("#video1").style.display = "block";
+            document.querySelector("#video2").style.display = "none";
+          } 
+          else if(data.label == "supsi" && data.confidence > 0.9) {
+            document.querySelector("#video2").style.display = "block";
+            document.querySelector("#video1").style.display = "none";
+          }
+          else {
+            // do nothing
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
